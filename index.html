@@ -17,10 +17,20 @@
             padding: 20px;
             text-align: center;
         }
+        nav {
+            text-align: center;
+            margin-top: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+            font-size: 18px;
+        }
         main {
             padding: 20px;
         }
-        article, form {
+        article, form, section {
             background: white;
             padding: 15px;
             margin-bottom: 15px;
@@ -35,10 +45,19 @@
 <body>
 
     <header>
-        <h1>Welcome to My Hunting & Fishing Blog</h1>
+        <h1>Funting/Hishing 320</h1>
+        <nav>
+            <a href="#about">About</a>
+        </nav>
     </header>
 
     <main>
+        <!-- About Section -->
+        <section id="about">
+            <h2>About This Blog</h2>
+            <p>This blog is dedicated to the Boys! Anyone who loves the great outdoors. Whether you're looking for tips and reviews of gear and locations or just wanna brag without the whole town knowing, this is the place to do it!</p>
+        </section>
+
         <!-- Post Upload Form -->
         <form id="postForm">
             <h2>Create a New Post</h2>
@@ -50,16 +69,7 @@
 
         <!-- Display Uploaded Posts -->
         <div id="posts">
-            <article>
-                <h2>Latest Trip Report</h2>
-                <p>Had an amazing time out on the lake, caught a record-breaking bass!</p>
-            </article>
-
-            <article>
-                <h2>Gear Review: Best Hunting Rifles</h2>
-                <p>Looking for a reliable rifle for your next hunting adventure? Here's my top pick...</p>
-            </article>
-        </div>
+             </div>
     </main>
 
     <script>
@@ -70,8 +80,12 @@
             let content = document.getElementById('content').value;
             let file = document.getElementById('file').files[0];
 
+            // Generate timestamp
+            let now = new Date();
+            let timestamp = now.toLocaleString();
+
             let postContainer = document.createElement('article');
-            postContainer.innerHTML = `<h2>${title}</h2><p>${content}</p>`;
+            postContainer.innerHTML = `<h2>${title}</h2><p>${content}</p><small>Posted on: ${timestamp}</small>`;
 
             if (file) {
                 let fileURL = URL.createObjectURL(file);
