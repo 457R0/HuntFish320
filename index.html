@@ -44,6 +44,7 @@
             <h2>Create a New Post</h2>
             <input type="text" id="title" placeholder="Post Title" required>
             <textarea id="content" placeholder="Write your post here..." required></textarea>
+            <input type="file" id="file" accept="image/*, .pdf, .docx">
             <button type="submit">Upload Post</button>
         </form>
 
@@ -67,15 +68,26 @@
             
             let title = document.getElementById('title').value;
             let content = document.getElementById('content').value;
+            let file = document.getElementById('file').files[0];
 
             let postContainer = document.createElement('article');
             postContainer.innerHTML = `<h2>${title}</h2><p>${content}</p>`;
+
+            if (file) {
+                let fileURL = URL.createObjectURL(file);
+                let fileLink = document.createElement('a');
+                fileLink.href = fileURL;
+                fileLink.textContent = "View Attached File";
+                fileLink.target = "_blank";
+                postContainer.appendChild(fileLink);
+            }
 
             document.getElementById('posts').appendChild(postContainer);
 
             // Clear the form
             document.getElementById('title').value = '';
             document.getElementById('content').value = '';
+            document.getElementById('file').value = '';
         });
     </script>
 
