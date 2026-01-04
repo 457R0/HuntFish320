@@ -4,146 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hunting & Fishing Blog</title>
-    <style> * {
-    box-sizing: border-box;
-}
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 0;
         }
+
         header {
             background-color: #4CAF50;
             color: white;
             padding: 20px;
             text-align: center;
         }
-        nav {
-            text-align: center;
-            margin-top: 10px;
-        }
+
         nav a {
             color: white;
             text-decoration: none;
             margin: 10px;
             font-size: 18px;
         }
+
         main {
             padding: 20px;
+            max-width: 800px;
+            margin: auto;
         }
-        article, form, section {
+
+        article,
+        form,
+        section {
             background: white;
             padding: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
         }
-        input, textarea, button {
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input,
+        textarea,
+        button {
             width: 100%;
             padding: 10px;
-            margin-top: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        small {
+            color: #555;
         }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>Funting/Hishing 320</h1>
-        <nav>
-            <a href="#about">About</a>
-        </nav>
-    </header>
+<header>
+    <h1>Funting / Hishing 320</h1>
+    <nav>
+        <a href="#about">About</a>
+    </nav>
+</header>
 
-    <main>
-        <!-- About Section -->
-        <section id="about">
-            <h2>About This Blog</h2>
-            <p>This blog is dedicated to the Boys! Anyone who loves the great outdoors. Whether you're looking for tips and reviews of gear and locations or just wanna brag without the whole town knowing, this is the place to do it!</p>
-        </section>
+<main>
 
-        <!-- Post Upload Form -->
-        <form id="postForm">
-            <h2>Create a New Post</h2>
-            <input type="text" id="title" placeholder="Post Title" required>
-            <textarea id="content" placeholder="Write your post here..." required></textarea>
-            <input type="file" id="file" accept="image/*, .pdf, .docx">
-            <button type="submit">Upload Post</button>
-        </form>
-
-<section id="userSection">
-    <h2>Set Your Username</h2>
-    <input type="text" id="usernameInput" placeholder="Enter your username">
-    <button id="saveUsername">Save Username</button>
-</section>
-
-        <!-- Display Uploaded Posts -->
-        <div id="posts">
-             </div>
-    </main>
-
-    <script>
-    // Check if username already exists
-    let username = localStorage.getItem('username');
-
-    const userSection = document.getElementById('userSection');
-
-    if (username) {
-        userSection.style.display = 'none';
-    }
-
-    // Save username
-    document.getElementById('saveUsername').addEventListener('click', function () {
-        const input = document.getElementById('usernameInput').value.trim();
-        if (input) {
-            localStorage.setItem('username', input);
-            username = input;
-            userSection.style.display = 'none';
-        }
-    });
-
-    document.getElementById('postForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        if (!username) {
-            alert("Please set a username first.");
-            return;
-        }
-
-        let title = document.getElementById('title').value;
-        let content = document.getElementById('content').value;
-        let file = document.getElementById('file').files[0];
-
-        let now = new Date();
-        let timestamp = now.toLocaleString();
-
-        let postContainer = document.createElement('article');
-        postContainer.innerHTML = `
-            <h2>${title}</h2>
-            <p><strong>${username}</strong> says:</p>
-            <p>${content}</p>
-            <small>Posted on: ${timestamp}</small>
-        `;
-
-        if (file) {
-            let fileURL = URL.createObjectURL(file);
-            let fileLink = document.createElement('a');
-            fileLink.href = fileURL;
-            fileLink.textContent = "View Attached File";
-            fileLink.target = "_blank";
-            postContainer.appendChild(document.createElement('br'));
-            postContainer.appendChild(fileLink);
-        }
-
-        document.getElementById('posts').appendChild(postContainer);
-
-        document.getElementById('title').value = '';
-        document.getElementById('content').value = '';
-        document.getElementById('file').value = '';
-    });
-</script>
-
-
-</body>
-</html>
-
-
-
+    <!-- About -->
+    <section id="about">
+        <h2>About This Blog</h2>
+        <p>
+            This blog is dedicated to the boys who love the outdoors.
