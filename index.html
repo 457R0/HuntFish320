@@ -97,3 +97,103 @@
         <h2>About This Blog</h2>
         <p>
             This blog is dedicated to the boys who love the outdoors.
+            Share hunts, fishing stories, gear tips, and brag a little
+            without the whole town knowing.
+        </p>
+    </section>
+
+    <!-- Username -->
+    <section id="userSection">
+        <h2>Set Your Username</h2>
+        <input type="text" id="usernameInput" placeholder="Enter your username">
+        <button id="saveUsername">Save Username</button>
+    </section>
+
+    <!-- Post Form -->
+    <form id="postForm">
+        <h2>Create a New Post</h2>
+        <input type="text" id="title" placeholder="Post Title" required>
+        <textarea id="content" placeholder="Write your post..." required></textarea>
+        <button type="submit">Post</button>
+    </form>
+
+    <!-- Posts -->
+    <div id="posts"></div>
+
+</main>
+
+<script>
+    // --------------------
+    // USERNAME
+    // --------------------
+    let username = localStorage.getItem('username');
+    const userSection = document.getElementById('userSection');
+
+    if (username) {
+        userSection.style.display = 'none';
+    }
+
+    document.getElementById('saveUsername').addEventListener('click', () => {
+        const input = document.getElementById('usernameInput').value.trim();
+        if (input) {
+            username = input;
+            localStorage.setItem('username', username);
+            userSection.style.display = 'none';
+        }
+    });
+
+    // --------------------
+    // POSTS
+    // --------------------
+    function loadPosts() {
+        const posts = JSON.parse(localStorage.getItem('posts')) || [];
+        const postsDiv = document.getElementById('posts');
+
+        postsDiv.innerHTML = '';
+
+        posts.forEach(post => {
+            const article = document.createElement('article');
+            article.innerHTML = `
+                <h2>${post.title}</h2>
+                <p><strong>${post.username}</strong> says:</p>
+                <p>${post.content}</p>
+                <small>Posted on: ${post.timestamp}</small>
+            `;
+            postsDiv.appendChild(article);
+        });
+    }
+
+    document.getElementById('postForm').addEventListener('submit', event => {
+        event.preventDefault();
+
+        if (!username) {
+            alert('Please set a username first.');
+            return;
+        }
+
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+        const timestamp = new Date().toLocaleString();
+
+        const posts = JSON.parse(localStorage.getItem('posts')) || [];
+
+        posts.unshift({
+            title,
+            content,
+            username,
+            timestamp
+        });
+
+        localStorage.setItem('posts', JSON.stringify(posts));
+
+        loadPosts();
+
+        event.target.reset();
+    });
+
+    // Load posts on page refresh
+    loadPosts();
+</script>
+
+</body>
+</html>
